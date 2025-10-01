@@ -1,0 +1,5 @@
+pypyodbc
+pandas
+searborn
+matplotlib
+python-dotenv
