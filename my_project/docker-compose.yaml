@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: sqlCompX
+    hostname: sqlCompX
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "P@ssW0rd"
+      MSSQL_PID: "Evaluation"
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql/data
+      - ./CompanyX.bak:/var/opt/mssql/backup/backup.bak:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P \"$MSSQL_SA_PASSWORD\" -Q \"SELECT 1\" >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+    # TEMPORARY: run init as root so system files can be created
+    user: "0"
+    networks:
+      - de_network
+
+  postgres:
+    image: postgres:15
+    container_name: pgCompanyX
+    hostname: pgCompanyX
+    environment:
+      POSTGRES_USER: companyx
+      POSTGRES_PASSWORD: "P@ssW0rd"
+      POSTGRES_DB: companyxdb
+    ports:
+      - "55432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d:ro
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U \"$POSTGRES_USER\" -d \"$POSTGRES_DB\" -h localhost || exit 1"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 12
+    restart: unless-stopped
+    networks:
+      - de_network
+
+volumes:
+  mssql-data:
+    driver: local
+  pgdata:
+    driver: local
+
+networks:
+  de_network:
+    driver: bridge
