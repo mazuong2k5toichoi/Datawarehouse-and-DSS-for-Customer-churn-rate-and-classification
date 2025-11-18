@@ -1,0 +1,108 @@
+[0m09:42:29.974795 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0c6d19a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0edde330>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0e1f4ef0>]}
+
+
+============================== 09:42:30.094112 | 42352cce-2d95-44bf-9265-0148315c443c ==============================
+[0m09:42:30.094112 [info ] [MainThread]: Running with dbt=1.10.15
+[0m09:42:30.097096 [debug] [MainThread]: running dbt with arguments {'introspect': 'True', 'partial_parse': 'True', 'fail_fast': 'False', 'log_format': 'default', 'write_json': 'True', 'empty': 'None', 'use_colors': 'True', 'static_parser': 'True', 'no_print': 'None', 'debug': 'False', 'send_anonymous_usage_stats': 'True', 'log_cache_events': 'False', 'indirect_selection': 'eager', 'target_path': 'None', 'cache_selected_only': 'False', 'invocation_command': 'dbt init --profiles-dir ./elt-pipeline/', 'printer_width': '80', 'warn_error': 'None', 'use_experimental_parser': 'False', 'profiles_dir': './elt-pipeline/', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_path': 'logs', 'quiet': 'False'}
+[0m09:44:01.127797 [debug] [MainThread]: Starter project path: /mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/include/starter_project
+[0m09:44:02.258149 [info ] [MainThread]: 
+Your new dbt project "dbt_123" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m09:44:02.260376 [info ] [MainThread]: Setting up your profile.
+[0m09:45:31.184150 [error] [MainThread]: Encountered an error:
+[Errno 2] No such file or directory: 'elt-pipeline/profiles.yml'
+[0m09:45:31.222469 [error] [MainThread]: Traceback (most recent call last):
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/requires.py", line 178, in wrapper
+    result, success = func(*args, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/requires.py", line 128, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/main.py", line 483, in init
+    results = task.run()
+              ^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 346, in run
+    self.setup_profile(profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 262, in setup_profile
+    self.create_profile_from_target(adapter, profile_name=profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 179, in create_profile_from_target
+    self.create_profile_from_profile_template(profile_template, profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 166, in create_profile_from_profile_template
+    self.write_profile(profile, profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 156, in write_profile
+    with open(profiles_filepath, "w") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'elt-pipeline/profiles.yml'
+
+[0m09:45:31.231258 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": false, "command_wall_clock_time": 195.19821, "process_in_blocks": "17992", "process_kernel_time": 1.427385, "process_mem_max_rss": "118068", "process_out_blocks": "0", "process_user_time": 1.995095}
+[0m09:45:31.232823 [debug] [MainThread]: Command `dbt init` failed at 09:45:31.232587 after 195.20 seconds
+[0m09:45:31.235082 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0d7aaea0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0c32c950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x78af0d318cb0>]}
+[0m09:45:31.236328 [debug] [MainThread]: Flushing usage events
+[0m09:45:33.762989 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:49:08.168024 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089b297c50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089b15f920>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089b297aa0>]}
+
+
+============================== 09:49:08.207305 | 5762c0a0-57d2-4991-b36f-535c779738c6 ==============================
+[0m09:49:08.207305 [info ] [MainThread]: Running with dbt=1.10.15
+[0m09:49:08.209554 [debug] [MainThread]: running dbt with arguments {'send_anonymous_usage_stats': 'True', 'log_format': 'default', 'profiles_dir': './elt-pipeline/', 'no_print': 'None', 'indirect_selection': 'eager', 'quiet': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'use_colors': 'True', 'fail_fast': 'False', 'invocation_command': 'dbt init --profiles-dir ./elt-pipeline/', 'log_path': 'logs', 'version_check': 'True', 'introspect': 'True', 'partial_parse': 'True', 'static_parser': 'True', 'printer_width': '80', 'target_path': 'None', 'log_cache_events': 'False', 'write_json': 'True', 'warn_error': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'use_experimental_parser': 'False', 'debug': 'False'}
+[0m09:49:13.927705 [debug] [MainThread]: Starter project path: /mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/include/starter_project
+[0m09:49:14.906842 [info ] [MainThread]: 
+Your new dbt project "abc" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m09:49:14.908884 [info ] [MainThread]: Setting up your profile.
+[0m09:49:53.727850 [error] [MainThread]: Encountered an error:
+[Errno 2] No such file or directory: 'elt-pipeline/profiles.yml'
+[0m09:49:53.766680 [error] [MainThread]: Traceback (most recent call last):
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/requires.py", line 178, in wrapper
+    result, success = func(*args, **kwargs)
+                      ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/requires.py", line 128, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/cli/main.py", line 483, in init
+    results = task.run()
+              ^^^^^^^^^^
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 346, in run
+    self.setup_profile(profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 262, in setup_profile
+    self.create_profile_from_target(adapter, profile_name=profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 179, in create_profile_from_target
+    self.create_profile_from_profile_template(profile_template, profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 166, in create_profile_from_profile_template
+    self.write_profile(profile, profile_name)
+  File "/mnt/c/Users/User/Desktop/bku/251/DWH/ASSIGNMENT/Assignment/Datawarehouse-and-DSS-for-Customer-churn-rate-and-classification/my_project/.venv/lib/python3.12/site-packages/dbt/task/init.py", line 156, in write_profile
+    with open(profiles_filepath, "w") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'elt-pipeline/profiles.yml'
+
+[0m09:49:53.772292 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": false, "command_wall_clock_time": 50.299854, "process_in_blocks": "17800", "process_kernel_time": 1.454005, "process_mem_max_rss": "102060", "process_out_blocks": "0", "process_user_time": 1.887521}
+[0m09:49:53.774531 [debug] [MainThread]: Command `dbt init` failed at 09:49:53.774359 after 50.30 seconds
+[0m09:49:53.777914 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089b74ca40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089aab70e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71089aa6a3f0>]}
+[0m09:49:53.780204 [debug] [MainThread]: Flushing usage events
+[0m09:49:55.492905 [debug] [MainThread]: An error was encountered while trying to flush usage events

@@ -1,0 +1,12 @@
+abc:
+  outputs:
+    dev:
+      dbname: companyxdb
+      host: localhost
+      pass: P@ssW0rd
+      port: 55432
+      schema: test
+      threads: 1
+      type: postgres
+      user: companyx
+  target: dev
