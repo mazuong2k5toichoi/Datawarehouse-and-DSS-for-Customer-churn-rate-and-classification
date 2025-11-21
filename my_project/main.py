@@ -1,7 +1,17 @@
-import sys
+import logging
 from elt_pipeline.ingest.psql_ingest import extract_data_from_sql, load_data_to_postgres
 
+def setup_logging():
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s: %(message)s"
+    )
+    return logging.getLogger(__name__)
+
 def main():
+    logger = setup_logging()
+    logger.info("Starting ETL process")
+
     src_prefix = "AdventureWorks2022."  # put the prefix in a variable
 
     list_tables_extract = [
@@ -54,12 +64,23 @@ def main():
     ]
 
     for i, tbl in enumerate(list_tables_extract):
-        query = f"SELECT * FROM {src_prefix}{tbl}"
-        data = extract_data_from_sql(query)
-        load_data_to_postgres(data, table_name=list_tables_load[i])
+        full_src = f"{src_prefix}{tbl}"
+        query = f"SELECT * FROM {full_src}"
+        logger.info("Extracting from %s", full_src)
+        try:
+            data = extract_data_from_sql(query)
+            row_count = len(data) if data is not None else 0
+            logger.info("Extracted %s rows from %s", row_count, full_src)
+
+            dest_table = list_tables_load[i]
+            logger.info("Loading data into %s", dest_table)
+            load_data_to_postgres(data, table_name=dest_table)
+            logger.info("Loaded data into %s", dest_table)
+        except Exception:
+            logger.exception("Failed processing table %s", full_src)
 
     # Extract for only people address table
-    query = f"""SELECT [AddressID]
+    address_query = f"""SELECT [AddressID]
       ,[AddressLine1]
       ,[AddressLine2]
       ,[City]
@@ -67,8 +88,19 @@ def main():
       ,[PostalCode]
       ,[rowguid]
       ,[ModifiedDate] FROM {src_prefix}Person.Address"""
-    data = extract_data_from_sql(query)
-    load_data_to_postgres(data, table_name='bronze.Person.address')
+    try:
+        logger.info("Extracting Person.Address")
+        data = extract_data_from_sql(address_query)
+        row_count = len(data) if data is not None else 0
+        logger.info("Extracted %s rows from Person.Address", row_count)
+
+        logger.info("Loading data into bronze.Person.address")
+        load_data_to_postgres(data, table_name='bronze.Person.address')
+        logger.info("Loaded data into bronze.Person.address")
+    except Exception:
+        logger.exception("Failed processing Person.Address")
+
+    logger.info("ETL process finished")
 
 if __name__ == "__main__":
     main()
