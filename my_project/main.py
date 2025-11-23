@@ -39,29 +39,30 @@ def main():
         "Production.ProductSubcategory",
         "Production.ProductCategory",
     ]
+
     list_tables_load = [
-        "bronze.Person.person",
-        "bronze.Person.business_entity_address",
-        "bronze.Person.address_type",
-        "bronze.Person.business_entity_contact",
-        "bronze.Person.state_province",
-        "bronze.Person.country_region",
-        "bronze.Person.email_address",
-        "bronze.Person.person_phone",
-        "bronze.Person.phone_number_type",
-        "bronze.Person.contact_type",
-        "bronze.Person.business_entity",
-        "bronze.Sales.customer",
-        "bronze.Sales.sales_order_header",
-        "bronze.Sales.sales_order_detail",
-        "bronze.Sales.sales_territory",
-        "bronze.Sales.special_offer",
-        "bronze.Sales.special_offer_product",
-        "bronze.Sales.sales_reason",
-        "bronze.Sales.sales_order_header_sales_reason",
-        "bronze.Production.product",
-        "bronze.Production.product_subcategory",
-        "bronze.Production.product_category",
+        ("bronze", "person_person"),
+        ("bronze", "person_business_entity_address"),
+        ("bronze", "person_address_type"),
+        ("bronze", "person_business_entity_contact"),
+        ("bronze", "person_state_province"),
+        ("bronze", "person_country_region"),
+        ("bronze", "person_email_address"),
+        ("bronze", "person_person_phone"),
+        ("bronze", "person_phone_number_type"),
+        ("bronze", "person_contact_type"),
+        ("bronze", "person_business_entity"),
+        ("bronze", "sales_customer"),
+        ("bronze", "sales_sales_order_header"),
+        ("bronze", "sales_sales_order_detail"),
+        ("bronze", "sales_sales_territory"),
+        ("bronze", "sales_special_offer"),
+        ("bronze", "sales_special_offer_product"),
+        ("bronze", "sales_sales_reason"),
+        ("bronze", "sales_sales_order_header_sales_reason"),
+        ("bronze", "production_product"),
+        ("bronze", "production_product_subcategory"),
+        ("bronze", "production_product_category"),
     ]
 
     for i, tbl in enumerate(list_tables_extract):
@@ -73,10 +74,10 @@ def main():
             row_count = len(data) if data is not None else 0
             logger.info("Extracted %s rows from %s", row_count, full_src)
 
-            dest_table = list_tables_load[i]
-            logger.info("Loading data into %s", dest_table)
-            load_data_to_postgres(data, table_name=dest_table)
-            logger.info("Loaded data into %s", dest_table)
+            dest_schema, dest_table = list_tables_load[i]
+            logger.info("Loading data into %s.%s", dest_schema, dest_table)
+            load_data_to_postgres(data, schema_name=dest_schema, table_name=dest_table)
+            logger.info("Loaded data into %s.%s", dest_schema, dest_table)
         except Exception:
             logger.exception("Failed processing table %s", full_src)
 
@@ -95,9 +96,11 @@ def main():
         row_count = len(data) if data is not None else 0
         logger.info("Extracted %s rows from Person.Address", row_count)
 
-        logger.info("Loading data into bronze.Person.address")
-        load_data_to_postgres(data, table_name="bronze.Person.address")
-        logger.info("Loaded data into bronze.Person.address")
+        dest_schema = "bronze"
+        dest_table = "person_address"
+        logger.info("Loading data into %s.%s", dest_schema, dest_table)
+        load_data_to_postgres(data, schema_name=dest_schema, table_name=dest_table)
+        logger.info("Loaded data into %s.%s", dest_schema, dest_table)
     except Exception:
         logger.exception("Failed processing Person.Address")
 
