@@ -78,6 +78,7 @@ models:
         tests:
           - unique
           - not_null
+
       - name: salesorder_hk
         description: "Hub key referencing Hub_SalesOrder."
         tests:
@@ -85,6 +86,7 @@ models:
           - relationships:
               to: ref('hub_salesorder')
               field: salesorder_hk
+
       - name: product_hk
         description: "Hub key referencing Hub_Product."
         tests:
@@ -93,6 +95,15 @@ models:
               to: ref('hub_product')
               field: product_hk
 
+      - name: salesorder_id
+        description: "Business key SalesOrderID used in the link and to join to the detail satellite."
+        tests:
+          - not_null
+
+      - name: product_id
+        description: "Business key ProductID used in the link and to join to the detail satellite."
+        tests:
+          - not_null
   - name: link_person_address
     description: "Link between persons and addresses."
     columns:

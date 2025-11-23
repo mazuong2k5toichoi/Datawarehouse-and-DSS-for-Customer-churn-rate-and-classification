@@ -48,6 +48,8 @@ final as (
         {{ dbt_utils.generate_surrogate_key(['salesorder_id', 'product_id']) }} as orderproduct_lk,
         salesorder_hk,
         product_hk,
+        salesorder_id,
+        product_id,
         loaddate,
         recordsource
     from joined

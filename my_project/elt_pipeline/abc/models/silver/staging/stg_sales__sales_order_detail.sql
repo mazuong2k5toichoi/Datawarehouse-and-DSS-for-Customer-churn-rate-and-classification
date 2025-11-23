@@ -1,4 +1,5 @@
 -- models/silver/staging/stg_sales__sales_order_detail.sql
+
 with source as (
     select
         "SalesOrderID"      as salesorder_id,
