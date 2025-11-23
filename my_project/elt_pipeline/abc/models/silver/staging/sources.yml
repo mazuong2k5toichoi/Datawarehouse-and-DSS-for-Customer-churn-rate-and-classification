@@ -16,25 +16,44 @@ sources:
       - name: person_business_entity_contact
         description: "Associates contacts with business entities."
       - name: person_state_province
+        description: "State and province information."
       - name: person_country_region
+        description: "Country and region information."
       - name: person_email_address
+        description: "Email addresses for persons."
       - name: person_person_phone
+        description: "Phone numbers for persons."
       - name: person_phone_number_type
+        description: "Types of phone numbers."
       - name: person_contact_type
+        description: "Types of contacts."
       - name: person_business_entity
+        description: "Business entity information."
       - name: person_address
+        description: "Address information."
 
       # Sales
       - name: sales_customer
+        description: "Customer information linking to business entities."
       - name: sales_sales_order_header
+        description: "Sales order header information."
       - name: sales_sales_order_detail
+        description: "Sales order detail lines."
       - name: sales_sales_territory
+        description: "Sales territory information."
       - name: sales_special_offer
+        description: "Special offers for products."
       - name: sales_special_offer_product
+        description: "Link between special offers and products."
       - name: sales_sales_reason
+        description: "Reasons for sales."
       - name: sales_sales_order_header_sales_reason
+        description: "Link between sales orders and reasons."
 
       # Production
       - name: production_product
+        description: "Product information."
       - name: production_product_subcategory
+        description: "Product subcategories."
       - name: production_product_category
+        description: "Product categories."
