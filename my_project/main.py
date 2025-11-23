@@ -1,66 +1,67 @@
 import logging
 from elt_pipeline.ingest.psql_ingest import extract_data_from_sql, load_data_to_postgres
 
+
 def setup_logging():
     logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(levelname)s %(name)s: %(message)s"
+        level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s"
     )
     return logging.getLogger(__name__)
+
 
 def main():
     logger = setup_logging()
     logger.info("Starting ETL process")
 
-    src_prefix = "AdventureWorks2022."  # put the prefix in a variable
+    src_prefix = ""
 
     list_tables_extract = [
-        'Person.Person',
-        'Person.BusinessEntityAddress',
-        'Person.AddressType',
-        'Person.BusinessEntityContact',
-        'Person.StateProvince',
-        'Person.CountryRegion',
-        'Person.EmailAddress',
-        'Person.PersonPhone',
-        'Person.PhoneNumberType',
-        'Person.ContactType',
-        'Person.BusinessEntity',
-        'Sales.Customer',
-        'Sales.SalesOrderHeader',
-        'Sales.SalesOrderDetail',
-        'Sales.SalesTerritory',
-        'Sales.SpecialOffer',
-        'Sales.SpecialOfferProduct',
-        'Sales.SalesReason',
-        'Sales.SalesOrderHeaderSalesReason',
-        'Production.Product',
-        'Production.ProductSubcategory',
-        'Production.ProductCategory'
+        "Person.Person",
+        "Person.BusinessEntityAddress",
+        "Person.AddressType",
+        "Person.BusinessEntityContact",
+        "Person.StateProvince",
+        "Person.CountryRegion",
+        "Person.EmailAddress",
+        "Person.PersonPhone",
+        "Person.PhoneNumberType",
+        "Person.ContactType",
+        "Person.BusinessEntity",
+        "Sales.Customer",
+        "Sales.SalesOrderHeader",
+        "Sales.SalesOrderDetail",
+        "Sales.SalesTerritory",
+        "Sales.SpecialOffer",
+        "Sales.SpecialOfferProduct",
+        "Sales.SalesReason",
+        "Sales.SalesOrderHeaderSalesReason",
+        "Production.Product",
+        "Production.ProductSubcategory",
+        "Production.ProductCategory",
     ]
     list_tables_load = [
-        'bronze.Person.person',
-        'bronze.Person.business_entity_address',
-        'bronze.Person.address_type',
-        'bronze.Person.business_entity_contact',
-        'bronze.Person.state_province',
-        'bronze.Person.country_region',
-        'bronze.Person.email_address',
-        'bronze.Person.person_phone',
-        'bronze.Person.phone_number_type',
-        'bronze.Person.contact_type',
-        'bronze.Person.business_entity',
-        'bronze.Sales.customer',
-        'bronze.Sales.sales_order_header',
-        'bronze.Sales.sales_order_detail',
-        'bronze.Sales.sales_territory',
-        'bronze.Sales.special_offer',
-        'bronze.Sales.special_offer_product',
-        'bronze.Sales.sales_reason',
-        'bronze.Sales.sales_order_header_sales_reason',
-        'bronze.Production.product',
-        'bronze.Production.product_subcategory',
-        'bronze.Production.product_category'  
+        "bronze.Person.person",
+        "bronze.Person.business_entity_address",
+        "bronze.Person.address_type",
+        "bronze.Person.business_entity_contact",
+        "bronze.Person.state_province",
+        "bronze.Person.country_region",
+        "bronze.Person.email_address",
+        "bronze.Person.person_phone",
+        "bronze.Person.phone_number_type",
+        "bronze.Person.contact_type",
+        "bronze.Person.business_entity",
+        "bronze.Sales.customer",
+        "bronze.Sales.sales_order_header",
+        "bronze.Sales.sales_order_detail",
+        "bronze.Sales.sales_territory",
+        "bronze.Sales.special_offer",
+        "bronze.Sales.special_offer_product",
+        "bronze.Sales.sales_reason",
+        "bronze.Sales.sales_order_header_sales_reason",
+        "bronze.Production.product",
+        "bronze.Production.product_subcategory",
+        "bronze.Production.product_category",
     ]
 
     for i, tbl in enumerate(list_tables_extract):
@@ -95,12 +96,13 @@ def main():
         logger.info("Extracted %s rows from Person.Address", row_count)
 
         logger.info("Loading data into bronze.Person.address")
-        load_data_to_postgres(data, table_name='bronze.Person.address')
+        load_data_to_postgres(data, table_name="bronze.Person.address")
         logger.info("Loaded data into bronze.Person.address")
     except Exception:
         logger.exception("Failed processing Person.Address")
 
     logger.info("ETL process finished")
+
 
 if __name__ == "__main__":
     main()
