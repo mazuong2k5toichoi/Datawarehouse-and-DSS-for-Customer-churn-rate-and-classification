@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: link_customer_person
+    description: "Link between customers and persons (individual customer contacts)."
+    columns:
+      - name: customerperson_lk
+        description: "Link key for customer–person relationship (hash of CustomerID + PersonID)."
+        tests:
+          - unique
+          - not_null
+      - name: customer_hk
+        description: "Hub key referencing Hub_Customer."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: customer_hk
+      - name: person_hk
+        description: "Hub key referencing Hub_Person."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_person')
+              field: person_hk
+
+  - name: link_customer_order
+    description: "Link between customers and sales orders."
+    columns:
+      - name: customerorder_lk
+        description: "Link key for customer–order relationship (hash of CustomerID + SalesOrderID)."
+        tests:
+          - unique
+          - not_null
+      - name: customer_hk
+        description: "Hub key referencing Hub_Customer."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: customer_hk
+      - name: salesorder_hk
+        description: "Hub key referencing Hub_SalesOrder."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_salesorder')
+              field: salesorder_hk
+
+  - name: link_customer_territory
+    description: "Link between customers and sales territories."
+    columns:
+      - name: customerterritory_lk
+        description: "Link key for customer–territory relationship (hash of CustomerID + TerritoryID)."
+        tests:
+          - unique
+          - not_null
+      - name: customer_hk
+        description: "Hub key referencing Hub_Customer."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: customer_hk
+      - name: territory_hk
+        description: "Hub key referencing Hub_Territory."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_territory')
+              field: territory_hk
+
+  - name: link_order_product
+    description: "Link between sales orders and products via order lines."
+    columns:
+      - name: orderproduct_lk
+        description: "Link key for order–product relationship (hash of SalesOrderID + ProductID)."
+        tests:
+          - unique
+          - not_null
+      - name: salesorder_hk
+        description: "Hub key referencing Hub_SalesOrder."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_salesorder')
+              field: salesorder_hk
+      - name: product_hk
+        description: "Hub key referencing Hub_Product."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_product')
+              field: product_hk
+
+  - name: link_person_address
+    description: "Link between persons and addresses."
+    columns:
+      - name: personaddress_lk
+        description: "Link key for person–address relationship (hash of BusinessEntityID + AddressID)."
+        tests:
+          - unique
+          - not_null
+      - name: person_hk
+        description: "Hub key referencing Hub_Person."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_person')
+              field: person_hk
+      - name: address_hk
+        description: "Hub key referencing Hub_Address."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_address')
+              field: address_hk
