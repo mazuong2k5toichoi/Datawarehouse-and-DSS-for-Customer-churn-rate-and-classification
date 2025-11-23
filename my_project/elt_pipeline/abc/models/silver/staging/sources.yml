@@ -1,0 +1,40 @@
+version: 2
+sources:
+  - name: bronze_adventureworks
+    description: "Source data from AdventureWorks2022, loaded into the bronze schema."
+    database: companyxdb
+    schema: bronze
+
+    tables:
+      # Person
+      - name: person_person
+        description: "Personal information about individuals."
+      - name: person_business_entity_address
+        description: "Associates business entities with addresses."
+      - name: person_address_type
+        description: "Types of addresses (e.g., Home, Billing)."
+      - name: person_business_entity_contact
+        description: "Associates contacts with business entities."
+      - name: person_state_province
+      - name: person_country_region
+      - name: person_email_address
+      - name: person_person_phone
+      - name: person_phone_number_type
+      - name: person_contact_type
+      - name: person_business_entity
+      - name: person_address
+
+      # Sales
+      - name: sales_customer
+      - name: sales_sales_order_header
+      - name: sales_sales_order_detail
+      - name: sales_sales_territory
+      - name: sales_special_offer
+      - name: sales_special_offer_product
+      - name: sales_sales_reason
+      - name: sales_sales_order_header_sales_reason
+
+      # Production
+      - name: production_product
+      - name: production_product_subcategory
+      - name: production_product_category

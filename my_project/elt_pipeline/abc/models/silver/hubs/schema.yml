@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: hub_customer
+    description: "Hub for customers, one row per customer."
+    columns:
+      - name: customer_hk
+        description: "Surrogate key for the customer."
+        data_tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Business key for the customer from the source system."
+        data_tests:
+          - unique
+          - not_null

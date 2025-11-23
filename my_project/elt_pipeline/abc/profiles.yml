@@ -5,7 +5,7 @@ abc:
       host: localhost
       pass: P@ssW0rd
       port: 55432
-      schema: test
+      schema: silver
       threads: 1
       type: postgres
       user: companyx
