@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  - name: sat_person_details
+    description: "Satellite with descriptive attributes for persons (names, type, etc.) hanging off Hub_Person."
+    columns:
+      - name: person_hk
+        description: "Hub key referencing Hub_Person."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_person')
+              field: person_hk
+      - name: loaddate
+        description: "Load timestamp for the satellite record."
+      - name: recordsource
+        description: "Source system for the record."
+      - name: first_name
+        description: "Person's first name."
+      - name: last_name
+        description: "Person's last name."
+
+  - name: sat_person_contact
+    description: "Satellite with contact information (emails) for persons."
+    columns:
+      - name: person_hk
+        description: "Hub key referencing Hub_Person."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_person')
+              field: person_hk
+      - name: email_address
+        description: "Email address for the person."
+
+  - name: sat_address_details
+    description: "Satellite with descriptive attributes for addresses."
+    columns:
+      - name: address_hk
+        description: "Hub key referencing Hub_Address."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_address')
+              field: address_hk
+      - name: address_line1
+        description: "First line of the street address."
+      - name: city
+        description: "City of the address."
+      - name: postal_code
+        description: "Postal code of the address."
+
+  - name: sat_product_details
+    description: "Satellite with descriptive attributes for products."
+    columns:
+      - name: product_hk
+        description: "Hub key referencing Hub_Product."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_product')
+              field: product_hk
+      - name: product_number
+        description: "Product number."
+      - name: product_name
+        description: "Product name."
+      - name: list_price
+        description: "List price of the product."
+
+  - name: sat_salesorder_header
+    description: "Satellite with order-level descriptive attributes hanging off Hub_SalesOrder."
+    columns:
+      - name: salesorder_hk
+        description: "Hub key referencing Hub_SalesOrder."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_salesorder')
+              field: salesorder_hk
+      - name: order_date
+        description: "Order date."
+      - name: due_date
+        description: "Due date."
+      - name: ship_date
+        description: "Ship date."
+      - name: sub_total
+        description: "Order subtotal."
+      - name: total_due
+        description: "Total amount due."
+
+  - name: sat_order_product_link
+    description: "Satellite on the Order-Product link with line-level measures."
+    columns:
+      - name: orderproduct_lk
+        description: "Link key referencing Link_Order_Product."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('link_order_product')
+              field: orderproduct_lk
+      - name: order_qty
+        description: "Quantity ordered for this product on this order."
+      - name: unit_price
+        description: "Unit price at the time of the order."
+      - name: unit_price_discount
+        description: "Discount applied to the unit price."
+      - name: line_total
+        description: "Line total amount."
