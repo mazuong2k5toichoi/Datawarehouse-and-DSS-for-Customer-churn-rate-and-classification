@@ -5,12 +5,106 @@ models:
     description: "Hub for customers, one row per customer."
     columns:
       - name: customer_hk
-        description: "Surrogate key for the customer."
-        data_tests:
+        description: "Surrogate hub key for the customer."
+        tests:
           - unique
           - not_null
       - name: customer_id
-        description: "Business key for the customer from the source system."
-        data_tests:
+        description: "Business key for the customer from Sales.Customer.CustomerID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Sales.Customer')."
+
+  - name: hub_person
+    description: "Hub for persons, one row per business entity representing a person."
+    columns:
+      - name: person_hk
+        description: "Surrogate hub key for the person."
+        tests:
           - unique
           - not_null
+      - name: business_entity_id
+        description: "Business key for the person from Person.Person.BusinessEntityID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Person.Person')."
+
+  - name: hub_salesorder
+    description: "Hub for sales orders, one row per sales order header."
+    columns:
+      - name: salesorder_hk
+        description: "Surrogate hub key for the sales order."
+        tests:
+          - unique
+          - not_null
+      - name: salesorder_id
+        description: "Business key for the order from Sales.SalesOrderHeader.SalesOrderID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Sales.SalesOrderHeader')."
+
+  - name: hub_product
+    description: "Hub for products, one row per product."
+    columns:
+      - name: product_hk
+        description: "Surrogate hub key for the product."
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: "Business key for the product from Production.Product.ProductID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Production.Product')."
+
+  - name: hub_territory
+    description: "Hub for sales territories."
+    columns:
+      - name: territory_hk
+        description: "Surrogate hub key for the territory."
+        tests:
+          - unique
+          - not_null
+      - name: territory_id
+        description: "Business key for the territory from Sales.SalesTerritory.TerritoryID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Sales.SalesTerritory')."
+
+  - name: hub_address
+    description: "Hub for addresses."
+    columns:
+      - name: address_hk
+        description: "Surrogate hub key for the address."
+        tests:
+          - unique
+          - not_null
+      - name: address_id
+        description: "Business key for the address from Person.Address.AddressID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Person.Address')."

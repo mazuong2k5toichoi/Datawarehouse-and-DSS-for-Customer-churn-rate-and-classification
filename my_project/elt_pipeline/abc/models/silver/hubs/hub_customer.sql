@@ -6,7 +6,7 @@
     )
 }}
 
-select
+select distinct
     customer_hk,
     customer_id,
     loaddate,
