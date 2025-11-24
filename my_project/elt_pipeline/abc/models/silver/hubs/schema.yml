@@ -108,3 +108,21 @@ models:
         description: "Load timestamp for the hub record."
       - name: recordsource
         description: "Source system for the record (e.g. 'Person.Address')."
+
+  - name: hub_special_offer
+    description: "Hub for special offers."
+    columns:
+      - name: special_offer_hk
+        description: "Surrogate hub key for the special offer."
+        tests:
+          - unique
+          - not_null
+      - name: special_offer_id
+        description: "Business key for the special offer from Sales.SpecialOffer.SpecialOfferID."
+        tests:
+          - not_null
+          - unique
+      - name: loaddate
+        description: "Load timestamp for the hub record."
+      - name: recordsource
+        description: "Source system for the record (e.g. 'Sales.SpecialOffer')."
