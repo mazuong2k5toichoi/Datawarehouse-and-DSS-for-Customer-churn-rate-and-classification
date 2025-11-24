@@ -106,3 +106,20 @@ models:
         description: "Discount applied to the unit price."
       - name: line_total
         description: "Line total amount."
+
+  - name: sat_territory_details
+    description: "Satellite on Hub_Territory with territory attributes."
+    columns:
+      - name: territory_hk
+        description: "Hub key referencing Hub_Territory."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_territory')
+              field: territory_hk
+      - name: name
+        description: "Territory name."
+      - name: country_region_code
+        description: "Country region code."
+      - name: group
+        description: "Territory group."
