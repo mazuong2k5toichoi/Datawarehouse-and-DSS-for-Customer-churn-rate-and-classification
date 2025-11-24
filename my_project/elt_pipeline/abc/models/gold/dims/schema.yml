@@ -44,3 +44,26 @@ models:
         description: "Sales territory name."
       - name: address_line1
         description: "Address line 1."
+
+  - name: dim_product
+    description: "Product dimension with category details."
+    columns:
+      - name: product_sk
+        description: "Surrogate key for product."
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        description: "Business key for product."
+        tests:
+          - not_null
+      - name: product_name
+        description: "Product name."
+      - name: color
+        description: "Product color."
+      - name: list_price
+        description: "List price."
+      - name: subcategory_name
+        description: "Product subcategory name."
+      - name: category_name
+        description: "Product category name."
