@@ -67,3 +67,41 @@ models:
         description: "Product subcategory name."
       - name: category_name
         description: "Product category name."
+
+  - name: dim_territory
+    description: "Territory dimension."
+    columns:
+      - name: territory_sk
+        description: "Surrogate key for territory."
+        tests:
+          - unique
+          - not_null
+      - name: territory_id
+        description: "Business key for territory."
+        tests:
+          - not_null
+      - name: territory_name
+        description: "Territory name."
+      - name: country_region_code
+        description: "Country region code."
+      - name: territory_group
+        description: "Territory group."
+
+  - name: dim_address
+    description: "Address dimension."
+    columns:
+      - name: address_sk
+        description: "Surrogate key for address."
+        tests:
+          - unique
+          - not_null
+      - name: address_id
+        description: "Business key for address."
+        tests:
+          - not_null
+      - name: address_line1
+        description: "Address line 1."
+      - name: city
+        description: "City."
+      - name: postal_code
+        description: "Postal code."
