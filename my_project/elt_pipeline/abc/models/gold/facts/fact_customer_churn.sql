@@ -57,7 +57,9 @@ customer_metrics as (
 
 final as (
     select
+        ('{{ snapshot_date }}')::date as snapshot_date,
         dc.customer_sk,
+        dc.customer_id, 
         dc.territory_sk,
         da.address_sk,
 
@@ -70,9 +72,26 @@ final as (
         {{ safe_divide('rfm.monetary', 'rfm.frequency') }} as avg_order_value,
         coalesce(rfm.distinct_product_count, 0) as distinct_product_count,
 
-        -- Churn: no orders in last 12 months
+        -- Goal: Increase the Churn rate to ~30–40%
         case
-            when clp.last_order_date < ('{{ snapshot_date }}'::date - interval '12 months') then 1
+            -- GROUP 1: Hard Churn (Purely time-based)
+            -- Anyone who has not purchased in the last 10 months (300 days) is considered churned
+            when ('{{ snapshot_date }}'::date - clp.last_order_date) > 300 then 1
+
+            -- GROUP 2: Low-Variety Churn (Based on Distinct Product Count)
+            -- Customers who only purchased 1–2 types of products (single-need customers)
+            -- AND have been inactive for more than 3 months (90 days).
+            -- Logic: They bought what they needed and have no intention to explore other categories.
+            when ('{{ snapshot_date }}'::date - clp.last_order_date) > 120
+                 AND coalesce(rfm.distinct_product_count, 0) <= 2 then 1
+
+            -- GROUP 3: Low-Value Churn (Based on Monetary & AOV)
+            -- Customers inactive for more than 4 months (120 days) AND belong to the low-spending group.
+            -- Logic: Low-budget/low-value customers are more price-sensitive and less loyal, so they churn earlier.
+            when ('{{ snapshot_date }}'::date - clp.last_order_date) > 120
+                 AND (coalesce(rfm.monetary, 0) < 50 OR {{ safe_divide('rfm.monetary', 'rfm.frequency') }} < 10) then 1
+
+            -- Remaining customers are considered Active
             else 0
         end as is_churned,
 
