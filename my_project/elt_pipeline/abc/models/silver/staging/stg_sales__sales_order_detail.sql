@@ -1,15 +1,15 @@
 -- models/silver/staging/stg_sales__sales_order_detail.sql
 
 with source as (
-    select
-        "SalesOrderID"      as salesorder_id,
-        "ProductID"         as product_id,
-        "OrderQty"          as order_qty,
-        "UnitPrice"         as unit_price,
-        "UnitPriceDiscount" as unit_price_discount,
-        "LineTotal"         as line_total,
-        "SpecialOfferID"    as specialoffer_id
-    from {{ source('bronze_adventureworks', 'sales_sales_order_detail') }}
+  select
+      "SalesOrderID"      as salesorder_id,
+      "ProductID"         as product_id,
+      "OrderQty"          as order_qty,
+      ("UnitPrice")::numeric         as unit_price,
+      ("UnitPriceDiscount")::numeric as unit_price_discount,
+      ("LineTotal")::numeric         as line_total,
+      "SpecialOfferID"    as specialoffer_id
+  from {{ source('bronze_adventureworks', 'sales_sales_order_detail') }}
 ),
 
 with_loaddate as (
