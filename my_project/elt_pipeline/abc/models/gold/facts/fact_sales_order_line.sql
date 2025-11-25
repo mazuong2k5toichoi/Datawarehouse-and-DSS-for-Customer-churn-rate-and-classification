@@ -80,7 +80,18 @@ combined as (
 
 with_sks as (
     select
-        c.*,
+        c.orderproduct_lk,
+        c.salesorder_id::bigint as salesorder_id,
+        c.order_date::date as order_date,
+        c.territory_id::bigint as territory_id,
+        c.customer_id::bigint as customer_id,
+        c.product_id::bigint as product_id,
+        c.order_qty::int as order_qty,
+        c.unit_price::numeric as unit_price,
+        c.unit_price_discount::numeric as unit_price_discount,
+        c.line_total::numeric as line_total,
+        c.specialoffer_id::bigint as specialoffer_id,
+
         {{ dbt_utils.generate_surrogate_key(['salesorder_id', 'product_id']) }} as sales_order_line_sk,
         {{ dbt_utils.generate_surrogate_key(['salesorder_id']) }} as salesorder_sk,
         {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_sk,
@@ -92,6 +103,9 @@ with_sks as (
 
 select *
 from with_sks
+
 {% if is_incremental() %}
-where order_date > (select max(order_date) from {{ this }})
+where order_date > (
+    select max(order_date) from {{ this }} where order_date is not null
+)::date
 {% endif %}
