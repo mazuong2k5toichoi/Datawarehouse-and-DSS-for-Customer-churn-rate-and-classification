@@ -42,7 +42,14 @@ combined as (
         sc.category_name
     from product_details pd
     left join subcategory sc on pd.product_subcategory_id = sc.product_subcategory_id
+),
+
+with_sk as (
+    select
+        *,
+        {{ dbt_utils.generate_surrogate_key(['product_id']) }} as product_sk
+    from combined
 )
 
 select *
-from combined
+from with_sk

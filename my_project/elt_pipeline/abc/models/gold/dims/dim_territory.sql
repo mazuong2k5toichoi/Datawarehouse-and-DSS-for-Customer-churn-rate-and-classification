@@ -18,6 +18,14 @@ with territory_details as (
         std.cost_last_year
     from {{ ref('hub_territory') }} ht
     left join {{ ref('sat_territory_details') }} std on ht.territory_hk = std.territory_hk
+),
+
+with_sk as (
+    select
+        *,
+        {{ dbt_utils.generate_surrogate_key(['territory_id']) }} as territory_sk
+    from territory_details
 )
+
 select *
-from territory_details 
+from with_sk

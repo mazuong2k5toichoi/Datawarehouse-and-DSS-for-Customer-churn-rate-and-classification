@@ -68,8 +68,14 @@ combined as (
     left join person_details pd on cb.person_hk = pd.person_hk
     left join territory_details td on cb.territory_hk = td.territory_hk
     left join customer_address ca on pd.person_hk = ca.person_hk
+),
+
+with_sk as (
+    select
+        *,
+        {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_sk
+    from combined
 )
 
-
 select *
-from combined
+from with_sk

@@ -81,7 +81,12 @@ combined as (
 with_sks as (
     select
         c.*,
-        {{ dbt_utils.generate_surrogate_key(['salesorder_id', 'product_id']) }} as sales_order_line_sk
+        {{ dbt_utils.generate_surrogate_key(['salesorder_id', 'product_id']) }} as sales_order_line_sk,
+        {{ dbt_utils.generate_surrogate_key(['salesorder_id']) }} as salesorder_sk,
+        {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_sk,
+        {{ dbt_utils.generate_surrogate_key(['product_id']) }} as product_sk,
+        {{ dbt_utils.generate_surrogate_key(['territory_id']) }} as territory_sk,
+        {{ dbt_utils.generate_surrogate_key(['order_date']) }} as order_date_sk
     from combined c
 )
 
