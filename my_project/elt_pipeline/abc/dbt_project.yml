@@ -36,6 +36,8 @@ models:
       +materialized: view
     silver:
       +schema: silver
+      +materialized: table
+      +tags: ['silver']
     gold:
       +materialized: table
       +schema: gold

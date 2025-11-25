@@ -9,36 +9,6 @@ models:
         tests:
           - unique
           - not_null
-      - name: salesorder_sk
-        description: "Surrogate key for sales order."
-      - name: product_sk
-        description: "Surrogate key for product."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_product')
-                field: product_sk
-      - name: customer_sk
-        description: "Surrogate key for customer."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_customer')
-                field: customer_sk
-      - name: territory_sk
-        description: "Surrogate key for territory."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_territory')
-                field: territory_sk
-      - name: order_date_sk
-        description: "Surrogate key for order date."
-        tests:
-          - relationships:
-              arguments:
-                to: ref('dim_date')
-                field: date_sk
       - name: order_qty
         description: "Order quantity."
       - name: unit_price
@@ -47,3 +17,4 @@ models:
         description: "Line total."
         tests:
           - not_null
+  - name: fact_customer_churn
