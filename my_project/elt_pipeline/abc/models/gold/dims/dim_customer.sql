@@ -46,7 +46,14 @@ customer_address as (
         lpa.person_hk,
         sad.address_line1,
         sad.city,
-        sad.postal_code
+        sad.postal_code,
+        -- LOGIC CHANGE: Generate a row number to identify multiple addresses per person
+        -- If you have an 'AddressTypeId' or 'ModifiedDate', order by that to pick the "best" one.
+        -- Here we pick the most recently loaded one (assuming a load_date exists) or arbitrary.
+        ROW_NUMBER() OVER (
+            PARTITION BY lpa.person_hk 
+            ORDER BY sad.loaddate DESC -- Change this to fit your logic (e.g. AddressType)
+        ) as address_rank
     from {{ ref('link_person_address') }} lpa
     join {{ ref('sat_address_details') }} sad on lpa.address_hk = sad.address_hk
 ),
@@ -58,7 +65,7 @@ combined as (
         pd.first_name,
         pd.last_name,
         pd.email_address,
-        dt.territory_sk, -- Select the surrogate key from the dimension
+        dt.territory_sk, 
         dt.territory_name,
         dt.country_region_code,
         dt.territory_group,
@@ -68,8 +75,9 @@ combined as (
     from customer_base cb
     left join person_details pd on cb.person_hk = pd.person_hk
     left join territory_details td on cb.territory_hk = td.territory_hk
-    left join {{ ref('dim_territory') }} dt on td.territory_id = dt.territory_id -- Join to the dimension
-    left join customer_address ca on pd.person_hk = ca.person_hk
+    left join {{ ref('dim_territory') }} dt on td.territory_id = dt.territory_id 
+    -- LOGIC CHANGE: Only join the top-ranked address
+    left join customer_address ca on pd.person_hk = ca.person_hk AND ca.address_rank = 1
 ),
 
 with_sk as (
