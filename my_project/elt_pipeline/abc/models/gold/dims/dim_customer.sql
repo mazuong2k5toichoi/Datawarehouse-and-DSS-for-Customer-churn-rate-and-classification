@@ -58,15 +58,17 @@ combined as (
         pd.first_name,
         pd.last_name,
         pd.email_address,
-        td.territory_name,
-        td.country_region_code,
-        td.territory_group,
+        dt.territory_sk, -- Select the surrogate key from the dimension
+        dt.territory_name,
+        dt.country_region_code,
+        dt.territory_group,
         ca.address_line1,
         ca.city,
         ca.postal_code
     from customer_base cb
     left join person_details pd on cb.person_hk = pd.person_hk
     left join territory_details td on cb.territory_hk = td.territory_hk
+    left join {{ ref('dim_territory') }} dt on td.territory_id = dt.territory_id -- Join to the dimension
     left join customer_address ca on pd.person_hk = ca.person_hk
 ),
 
