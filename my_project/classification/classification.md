@@ -73,11 +73,6 @@ Churn Probability:
 - < 0.40: LOW RISK - Stable customer
 ```
 
-### Feature Importance
-- Top 3 features typically account for 40-60% of prediction power
-- Focus retention strategies on these key factors
-- Examples: RFM_Score, Problem_Score, Recency
-
 ## Model Parameters Explained
 
 ### Random Forest
