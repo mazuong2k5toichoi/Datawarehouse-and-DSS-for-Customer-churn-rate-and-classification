@@ -80,7 +80,7 @@ final as (
 
             -- GROUP 2: Low-Variety Churn (Based on Distinct Product Count)
             -- Customers who only purchased 1–2 types of products (single-need customers)
-            -- AND have been inactive for more than 3 months (90 days).
+            -- AND have been inactive for more than 4 months (120 days).
             -- Logic: They bought what they needed and have no intention to explore other categories.
             when ('{{ snapshot_date }}'::date - clp.last_order_date) > 120
                  AND coalesce(rfm.distinct_product_count, 0) <= 2 then 1
